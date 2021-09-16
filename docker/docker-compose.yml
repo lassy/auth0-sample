@@ -1,0 +1,28 @@
+version: '3.7'
+services:
+  # MySQL
+  db: &db
+    image: mysql:8.0
+    container_name: "auth0_sample.db"
+    platform: linux/x86_64
+    networks:
+      - auth0_sample
+    ports:
+      - "${DATABASE_LOCAL_PORT}:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - db-volume:/var/lib/mysql
+      - ./files/db/my.cnf:/etc/mysql/conf.d/my.cnf
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+  # Redis
+  cache:  &cache
+    image: redis:6.2
+    container_name: "auth0_sample.cache"
+    ports:
+      - "${CACHE_LOCAL_PORT}:6379"
+volumes:
+  db-volume:
+    driver: local
+networks:
+  auth0_sample:
