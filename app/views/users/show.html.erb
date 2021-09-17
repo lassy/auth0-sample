@@ -1,0 +1,31 @@
+<h2>User</h2>
+
+<h3>ID Token</h3>
+
+<div>
+  <table border="1" cellspacing="0">
+    <thead>
+      <th>Key</th>
+      <th>Value</th>
+    </thead>
+    <tbody>
+      <% @user_info.each do |key, value| %>
+        <tr>
+          <% if key.eql?("exp") %>
+            <td><%= key %></td>
+            <td><%= Time.at(value.to_i) %></td>
+          <% else %>
+            <td><%= key %></td>
+            <td><%= value %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div>
+  <p>Logout via Auth0</p>
+
+  <%= button_to 'Logout', 'auth/logout', method: :get %>
+</div>
