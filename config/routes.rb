@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   get 'user' => 'users#show'
 
+  get '/api/users/:uid/authorities' => 'api/users#authorities'
+
   get '/auth/auth0/callback' => 'auth0#callback'
   get '/auth/failure' => 'auth0#failure'
   get '/auth/logout' => 'auth0#logout'
